@@ -17,10 +17,13 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
     "paths": {
       "*": ["node_modules/*", "src/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
