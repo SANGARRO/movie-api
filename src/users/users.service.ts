@@ -7,7 +7,7 @@ import { User } from './user.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private readonly usersRepository: Repository<User>,
   ) {}
 
   async findOneByEmail(email: string): Promise<User | undefined> {
@@ -22,7 +22,7 @@ export class UsersService {
     });
   }
 
-  async create(user: User): Promise<User> {
+  async create(user: Partial<User>): Promise<User> {
     return this.usersRepository.save(user);
   }
 }

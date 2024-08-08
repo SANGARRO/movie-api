@@ -6,8 +6,8 @@ import * as bcrypt from 'bcryptjs';
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -20,6 +20,15 @@ export class AuthService {
   }
 
   async login(user: any) {
+    const payload = { email: user.email, sub: user.id };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
+
+  async register(email: string, password: string): Promise<any> {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await this.usersService.create({ email, password: hashedPassword });
     const payload = { email: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
